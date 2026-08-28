@@ -70,7 +70,7 @@ Create a Pages project for this repository with:
 - Build output directory: `dist`
 - Node.js version: 22 or later
 
-No environment variables, server functions, databases, or storage bindings are required. `static/_headers` ships a production content security policy with the static output.
+No environment variables, server functions, databases, or storage bindings are required. SvelteKit generates a hash-based content security policy for each static build, while `static/_headers` supplies Cloudflare-only response headers such as frame protection.
 
 ## Architecture
 

@@ -88,11 +88,11 @@ No credentials are required. PDFs remain local to the browser.
 
 ## Public Demo Link
 
-**TODO:** Add the deployed Cloudflare Pages URL.
+[https://paperspace.pages.dev/](https://paperspace.pages.dev/)
 
 ## Public Repository Link
 
-**TODO:** Add the public repository URL after configuring and verifying the Git remote. The repository must expose the included MIT `LICENSE` at the top level.
+[https://github.com/JacobLinCool/PaperSpace](https://github.com/JacobLinCool/PaperSpace)
 
 ## Demo Video
 
@@ -119,6 +119,8 @@ Suggested story arc:
 
 Official event: **The WebMCP Challenge** (`webmcp`).
 
+PaperSpace submission: [Devpost submission 1154203](https://devpost.com/submit-to/31011-the-webmcp-challenge/manage/submissions/1154203-paperspace/project_details/edit).
+
 Official submission deadline: **September 3, 2026 at 1:00 PM Pacific Time** (**September 4 at 4:00 AM in Taipei**). The current official phase is submissions open.
 
 Judging criteria:
@@ -135,11 +137,11 @@ Local source readiness:
 - [x] Static Cloudflare Pages build configuration and security headers.
 - [x] Local run, architecture, and WebMCP testing documentation.
 - [x] Final local verification on August 29, 2026: 49/49 Vitest tests, 0 Svelte errors or warnings, Prettier and ESLint, static production build, and 8/8 Playwright flows.
-- [ ] Add public live URL.
-- [ ] Configure and verify public repository URL and About/license visibility.
+- [ ] Redeploy and verify the public Cloudflare Pages URL after the CSP fix.
+- [x] Public repository URL configured with a top-level MIT license.
 - [ ] Record and publish the required narrated demo under three minutes.
 - [ ] Capture the five final screenshots after visual verification.
-- [ ] Create or select a PaperSpace-specific Devpost project without modifying the other WebMCP Challenge entries.
+- [x] PaperSpace-specific Devpost submission identified without modifying the other WebMCP Challenge entries.
 
 The copy-ready seven-section Devpost narrative is in [`docs/hackathon-submission.md`](docs/hackathon-submission.md).
 
@@ -160,7 +162,7 @@ This differs from the broader MCP protocol, which defines image content for tool
 - A browser without the current imperative `document.modelContext` API can use the reading desk but receives no WebMCP tools.
 - Scanned PDFs without embedded text require future browser-local OCR for semantic search and reading.
 - Very large corpora remain constrained by browser storage, memory, and PDF rasterization cost even though rendering is viewport-aware and budgeted.
-- The public demo URL, repository URL, video, and final evidence assets are not yet filled into this local packet.
+- The public demo must be redeployed and verified after the CSP fix; the video and final evidence assets are not yet filled into this local packet.
 
 Technical references: [WebMCP Community Group Draft](https://webmachinelearning.github.io/webmcp/) and [MCP tool result content types](https://modelcontextprotocol.io/specification/2025-06-18/server/tools).
 

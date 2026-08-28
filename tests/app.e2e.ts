@@ -54,6 +54,17 @@ function paperPdf(pageTexts: readonly string[]): Buffer {
 	return Buffer.concat([...chunks, Buffer.from(xref)]);
 }
 
+test('boots under the production hash-based content security policy', async ({ page }) => {
+	await page.goto('/');
+
+	const policy = await page
+		.locator('meta[http-equiv="content-security-policy"]')
+		.getAttribute('content');
+	expect(policy).toContain("script-src 'self' 'sha256-");
+	expect(policy).not.toContain("script-src 'self' 'unsafe-inline'");
+	await expect(page.getByRole('main', { name: 'Spatial paper desk' })).toBeVisible();
+});
+
 test('opens a private empty reading desk with its primary controls', async ({ page }) => {
 	await page.goto('/');
 
