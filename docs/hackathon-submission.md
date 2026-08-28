@@ -10,7 +10,7 @@ PaperSpace preserves that spatial memory. Every page of every imported PDF is un
 
 The browser is essential to this interaction. It owns the PDFs the person explicitly selected, the rendered pages, the local text index, the page geometry, the current camera, and the workspace the person is looking at. WebMCP lets an agent understand and act on that exact state without uploading the papers to an application backend or maintaining a separate agent-only model.
 
-PaperSpace began from ideas explored in MilkDesk, a broader collaborative research workspace. For the WebMCP Challenge, we rebuilt the concept as a focused, open-source, single-person tool: no diagrams, sticky notes, accounts, collaboration system, or backend MCP server—only the parts that strengthen reading, understanding, and presenting papers.
+We built PaperSpace for the WebMCP Challenge as a focused, open-source, single-person tool: no diagrams, sticky notes, accounts, collaboration system, or backend MCP server—only the parts that strengthen reading, understanding, and presenting papers.
 
 The result is not “an AI chat beside a PDF.” It is a shared spatial instrument where the person controls the source material and the agent can help organize attention inside the same visible world.
 
@@ -33,6 +33,8 @@ The app exposes nine WebMCP tools:
 - `place_plot` creates a safe declarative line plot from finite numeric data.
 - `place_image` validates and places a PNG, JPEG, or WebP visual while rejecting executable formats.
 - `present_sequence` creates a captioned sequence of semantic paper regions and visual artifacts.
+
+PaperSpace also gives the agent an explicit delivery contract. When PaperSpace is available, substantive introductions, explanations, reviews, comparisons, and answers grounded across multiple paper regions should be delivered through `present_sequence` instead of ending as detached chat summaries. Chat remains concise supporting context. Simple localized Q&A and explicit text-only requests remain lightweight exceptions, while a single grounded passage can use `focus_region`.
 
 The sequence interaction is the heart of the product. Suppose one experiment is explained across related work, methods, and results on three distant pages. The agent can build a three-frame sequence with a caption for each view. When presentation begins, PaperSpace temporarily draws those original pages together beside their paper in first-appearance order. Their source positions remain visible as quiet numbered slots, so the reader never loses the paper's topology.
 
@@ -70,7 +72,7 @@ Region targeting uses top-left normalized coordinates. The same semantic region 
 
 Presentation staging is transactional. PaperSpace validates every frame before changing state, deduplicates source pages by first appearance, snapshots their exact geometry and the entry camera, stages the original pages, and exposes their source slots. During presentation, page manipulation is disabled. Persistence also substitutes the original geometry if the browser saves while a sequence is active, ensuring temporary staging can never leak into the durable desk.
 
-WebMCP is registered directly through `document.modelContext.registerTool(...)`. The WebMCP adapter is intentionally thin: every tool calls the same workspace methods used by the visible interface. There is no second state store or separate agent implementation that can drift from what the person sees.
+WebMCP is registered directly through `document.modelContext.registerTool(...)`. The WebMCP adapter is intentionally thin: every tool calls the same workspace methods used by the visible interface. There is no second state store or separate agent implementation that can drift from what the person sees. The delivery contract is visible both before execution in the registered tool descriptions and after inspection in `inspect_workspace.agentProtocol`, so an agent does not need a separate hidden prompt to understand that grounded paper work belongs on the shared desk.
 
 Read tools mark extracted PDF content as untrusted. Invalid IDs, regions, and incomplete inputs fail explicitly. Original filesystem paths are never available to the app or returned to an agent; PaperSpace works only with file bytes the person authorized the browser to read. Generated visuals are bounded to source-linked PNG crops, validated raster formats, and finite declarative plot data rather than arbitrary HTML or SVG.
 

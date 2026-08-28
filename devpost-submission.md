@@ -28,11 +28,13 @@ Together, a person and an agent can do something that is difficult in either a P
 
 PaperSpace does not bundle a model or send PDFs to an application backend. It exposes nine browser-native WebMCP tools to the agent selected by the person. The agent supplies interpretation and planning; PaperSpace supplies authorized source text, normalized geometry, live workspace state, reversible actions, and visible results.
 
+The WebMCP contract makes PaperSpace the primary delivery surface for substantive paper-grounded work. Introductions, explanations, reviews, comparisons, and multi-region answers are presented as captioned views of original paper regions rather than stopping as detached chat summaries. Simple localized Q&A and explicit text-only requests remain lightweight exceptions.
+
 The tool design intentionally separates dependable semantic access from client-dependent visual access. Agents can reliably read extracted text and structured page geometry. PaperSpace can create source-linked raster artifacts on the desk, but it does not claim that current WebMCP clients will always deliver those pixels to a multimodal model.
 
 ## How We Used Codex
 
-Codex was our collaborative implementation and review agent during the focused rebuild from the broader MilkDesk concept. We used it to translate the product contract into a per-page workspace schema, transactional sequence staging, cancellable camera flights, bounded visual-mutation preflights, and a thin WebMCP adapter over the same actions used by the interface.
+Codex was our collaborative implementation and review agent throughout PaperSpace's design and development. We used it to translate the product contract into a per-page workspace schema, transactional sequence staging, cancellable camera flights, bounded visual-mutation preflights, and a thin WebMCP adapter over the same actions used by the interface.
 
 Codex also helped write and run unit and Playwright coverage, inspect real browser behavior, diagnose PDF raster churn, refine WebMCP tool descriptions and schemas, and audit the final product and submission narrative against the implemented source. Product decisions and final verification remained human-directed.
 
@@ -42,6 +44,7 @@ Codex also helped write and run unit and Playwright coverage, inspect real brows
 - Keeps every page as an independently movable and resizable live PDF sheet with selectable text.
 - Indexes text page by page with normalized geometry for exact search and focus.
 - Provides a reusable `inspect_workspace` briefing and whole-paper or broad-range reads to avoid repeated setup calls.
+- Makes captioned PaperSpace sequences the default delivery for substantive paper-grounded explanations.
 - Guides the camera with cancellable pull-back, travel, and landing motion rather than teleporting.
 - Temporarily gathers the original pages needed by a semantic sequence and restores the desk exactly on exit.
 - Creates source-linked PDF crops, validated raster images, and safe declarative line plots.
@@ -136,8 +139,8 @@ Local source readiness:
 - [x] Top-level MIT license.
 - [x] Static Cloudflare Pages build configuration and security headers.
 - [x] Local run, architecture, and WebMCP testing documentation.
-- [x] Final local verification on August 29, 2026: 49/49 Vitest tests, 0 Svelte errors or warnings, Prettier and ESLint, static production build, and 8/8 Playwright flows.
-- [ ] Redeploy and verify the public Cloudflare Pages URL after the CSP fix.
+- [x] Final local verification on August 29, 2026: 51/51 Vitest tests, 0 Svelte errors or warnings, Prettier and ESLint, static production build, and 9/9 Playwright flows.
+- [x] Public Cloudflare Pages deployment verified after the CSP fix.
 - [x] Public repository URL configured with a top-level MIT license.
 - [ ] Record and publish the required narrated demo under three minutes.
 - [ ] Capture the five final screenshots after visual verification.
@@ -162,7 +165,7 @@ This differs from the broader MCP protocol, which defines image content for tool
 - A browser without the current imperative `document.modelContext` API can use the reading desk but receives no WebMCP tools.
 - Scanned PDFs without embedded text require future browser-local OCR for semantic search and reading.
 - Very large corpora remain constrained by browser storage, memory, and PDF rasterization cost even though rendering is viewport-aware and budgeted.
-- The public demo must be redeployed and verified after the CSP fix; the video and final evidence assets are not yet filled into this local packet.
+- The required video and final evidence assets are not yet filled into this local packet.
 
 Technical references: [WebMCP Community Group Draft](https://webmachinelearning.github.io/webmcp/) and [MCP tool result content types](https://modelcontextprotocol.io/specification/2025-06-18/server/tools).
 
@@ -173,8 +176,7 @@ Do not copy these into Devpost until every value has been confirmed for the Pape
 - **Submitter Type** (required): confirm `Individual`, `Team of Individuals`, or `Organization`.
 - **Country of residence** (required): confirm the legal answer for every submitter.
 - **Organization name** (optional): complete only if submitting for an organization.
-- **App Status** (required): confirm `New` or `Existing` under the event's definition.
-- **Existing-project update explanation** (conditional): if `Existing`, explain the focused rebuild from MilkDesk—individual frontend-only product, unfolded per-page desk, semantic sequence staging, spatial camera flights, direct WebMCP tools, and local persistence.
+- **App Status** (required): select `New`; PaperSpace is a new standalone project.
 - **Live URL** (required): add the accessible Cloudflare Pages URL.
 - **Testing instructions** (optional): adapt the verified steps above and include credentials only if deployment later adds authentication.
 - **Public code repository URL** (required): add the public Git URL and verify the MIT license is detected in the repository About section.
