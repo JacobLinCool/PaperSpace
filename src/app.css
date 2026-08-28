@@ -1,0 +1,142 @@
+:root {
+	font-family:
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		sans-serif;
+	color: #3b4252;
+	background: #eceff4;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+
+	/* Polar Night */
+	--ps-text-strong: #2e3440;
+	--ps-text: #3b4252;
+	--ps-text-muted: #4c566a;
+
+	/* Snow Storm and paper */
+	--ps-desk: #eceff4;
+	--ps-desk-deep: #e5e9f0;
+	--ps-paper: #ffffff;
+	--ps-paper-soft: #f8f9fb;
+
+	/* Frost */
+	--ps-frost-deep: #4d6e97;
+	--ps-frost: #81a1c1;
+	--ps-frost-cyan: #88c0d0;
+	--ps-frost-teal: #8fbcbb;
+
+	/* Aurora, semantic only */
+	--ps-danger: #a94b55;
+	--ps-warning: #d2a93b;
+	--ps-success: #769d5c;
+	--ps-accent: #b48ead;
+
+	--ps-border: rgb(76 86 106 / 18%);
+	--ps-border-strong: rgb(76 86 106 / 32%);
+	--ps-selection: rgb(136 192 208 / 35%);
+	--ps-caption-surface: rgb(10 12 16 / 76%);
+	--ps-caption-shadow: rgb(10 12 16 / 20%);
+	--ps-focus-ring: 0 0 0 2px rgb(77 110 151 / 60%);
+	--ps-shadow-item: 0 1px 3px rgb(46 52 64 / 12%), 0 1px 2px rgb(46 52 64 / 8%);
+	--ps-shadow-item-active: 0 4px 14px rgb(46 52 64 / 18%), 0 2px 4px rgb(46 52 64 / 10%);
+	--ps-shadow-chrome: 0 2px 12px rgb(46 52 64 / 14%);
+
+	--ps-radius-s: 6px;
+	--ps-radius-m: 10px;
+	--ps-radius-l: 14px;
+	--ps-statusbar-h: 44px;
+	--ps-transition: 120ms ease-out;
+	--ps-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	background: var(--ps-desk);
+	color: var(--ps-text);
+}
+
+button,
+input,
+textarea {
+	font: inherit;
+}
+
+button {
+	color: inherit;
+}
+
+button,
+[role='button'] {
+	-webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+	background: var(--ps-selection);
+}
+
+:focus-visible {
+	outline: none;
+	box-shadow: var(--ps-focus-ring);
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: color-mix(in srgb, var(--ps-text-muted) 30%, transparent);
+	border: 3px solid transparent;
+	border-radius: 999px;
+	background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: color-mix(in srgb, var(--ps-text-muted) 46%, transparent);
+	border: 3px solid transparent;
+	background-clip: padding-box;
+}
+
+.sr-only {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	padding: 0 !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	clip: rect(0, 0, 0, 0) !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

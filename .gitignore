@@ -90,6 +90,11 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
+.svelte-kit/
+.playwright-cli/
+.impeccable/
+test-results/
+playwright-report/
 
 # Gatsby files
 .cache/
@@ -134,3 +139,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Durable agent-only production guidance
+*.shadow.md
