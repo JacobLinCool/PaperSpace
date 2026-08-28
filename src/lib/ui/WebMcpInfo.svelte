@@ -5,6 +5,7 @@
 	import Trash2 from '@lucide/svelte/icons/trash-2';
 	import X from '@lucide/svelte/icons/x';
 	import { requestLocalWorkspaceReset } from '$lib/ui/resetLocalWorkspace';
+	import { PAPERSPACE_PREPARATION_PROMPT } from '$lib/webmcp/protocol';
 	import type { Workspace } from '$lib/workspace/workspace.svelte';
 	import IconButton from './IconButton.svelte';
 
@@ -17,8 +18,6 @@
 	let { workspace, open, onclose }: Props = $props();
 	let promptCopied = $state(false);
 	let resetting = $state(false);
-	const preparationPrompt =
-		'Prepare this PaperSpace desk for fast follow-up questions. Call inspect_workspace once, cache its briefingRevision and compact paper briefs, and do not change the desk. When a later question requires paper text, read the broadest useful range in one read_paper_pages call; whole-paper reads are allowed and should not be split into repeated calls. Use search_papers when only a specific passage or focusable source region is needed. Report current readiness in one sentence, then wait for my questions.';
 	const tools = [
 		['inspect_workspace', 'Prepare a reusable compact desk briefing.'],
 		['search_papers', 'Find passages progressively with exact coverage.'],
@@ -28,12 +27,12 @@
 		['snapshot_paper_region', 'Place a guarded source crop for comparison.'],
 		['place_plot', 'Place a guarded plot for ordered numeric data.'],
 		['place_image', 'Place a guarded, validated raster image.'],
-		['present_sequence', 'Gather related pages and present captioned semantic views.']
+		['present_sequence', 'Deliver substantive paper explanations as grounded semantic views.']
 	] as const;
 
 	async function copyPreparationPrompt(): Promise<void> {
 		try {
-			await navigator.clipboard.writeText(preparationPrompt);
+			await navigator.clipboard.writeText(PAPERSPACE_PREPARATION_PROMPT);
 			promptCopied = true;
 			workspace.showToast('Preparation prompt copied.');
 		} catch {

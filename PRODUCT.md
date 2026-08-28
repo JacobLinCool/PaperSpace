@@ -67,6 +67,7 @@ PaperSpace is neither a conventional tabbed PDF reader nor a general whiteboard.
 4. **Agents share the visible desk.** WebMCP operates the same client-side state the person sees, with clear tool contracts and immediate visual feedback.
 5. **Focused scope beats whiteboard breadth.** Every feature must strengthen reading, understanding, comparison, or presentation of papers.
 6. **Prepare once, read in one pass.** Agents reuse a compact briefing, then request the broadest useful contiguous range in one call. Whole-paper reads are valid when a question needs full context; repeated small page batches are not the default.
+7. **PaperSpace is the delivery surface.** When it is available, substantive paper-grounded introductions, explanations, reviews, comparisons, and multi-region answers are delivered as captioned sequences of original paper regions. Chat remains supporting context; simple localized Q&A and explicit text-only requests are the exceptions.
 
 ## Accessibility & Inclusion
 

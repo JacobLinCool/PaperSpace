@@ -3,6 +3,7 @@ import type { FrameTarget, PageRegion, PlotSeries } from '$lib/domain/types';
 import { paperBounds } from '$lib/domain/layout';
 import type { SequenceFrameInput, Workspace } from '$lib/workspace/workspace.svelte';
 import { briefingRevision, paperContentBrief, workspaceReadiness } from '$lib/webmcp/briefing';
+import { PAPERSPACE_AGENT_PROTOCOL } from '$lib/webmcp/protocol';
 
 function result(data: unknown) {
 	return {
@@ -335,7 +336,7 @@ export async function registerWebMcp(workspace: Workspace): Promise<() => void> 
 				name: 'inspect_workspace',
 				title: 'Inspect the PaperSpace desk',
 				description:
-					'Call once when a session starts, or again only when briefingRevision changes. Returns progressive indexing readiness, compact sampled page briefs, source cues, unfolded geometry, visuals, sequences, and camera state. Reuse this briefing and batch later paper reads into one broad range instead of repeated small calls. Local filesystem paths are never exposed.',
+					'Call once when a session starts, or again only when briefingRevision changes. Returns progressive indexing readiness, compact sampled page briefs, source cues, unfolded geometry, visuals, sequences, camera state, and the delivery protocol that makes PaperSpace the primary surface for substantive paper-grounded work. Reuse this briefing and batch later paper reads into one broad range instead of repeated small calls. Local filesystem paths are never exposed.',
 				inputSchema: { type: 'object', properties: {}, additionalProperties: false },
 				annotations: { readOnlyHint: true, untrustedContentHint: true },
 				execute: () =>
@@ -343,12 +344,7 @@ export async function registerWebMcp(workspace: Workspace): Promise<() => void> 
 						workspace: workspace.state.name,
 						briefingRevision: briefingRevision(workspace.state),
 						readiness: workspaceReadiness(workspace.papers, workspace.importingCount),
-						agentProtocol: [
-							'Reuse this compact briefing while briefingRevision is unchanged.',
-							'When paper text is needed, read the broadest useful range once. Whole-paper reads are allowed; do not split one intended read into repeated page batches.',
-							'Use search_papers when only a specific passage or focusable source region is needed.',
-							'Visual mutations preflight layout conflicts. Retry with force: true only when covering or crowding source material is intentional.'
-						],
+						agentProtocol: PAPERSPACE_AGENT_PROTOCOL,
 						storage: 'Authorized browser-local copies only; original paths are unavailable',
 						coordinateSystem: 'PDF regions use top-left normalized x, y, width, and height',
 						papers: paperSummary(workspace),
@@ -572,7 +568,7 @@ export async function registerWebMcp(workspace: Workspace): Promise<() => void> 
 				name: 'present_sequence',
 				title: 'Present a guided reading sequence',
 				description:
-					'Atomically present 1 to 20 semantic views. Lead with original paper-region evidence and add derived artifacts only when they resolve a stated comprehension gap. Related original PDF pages are temporarily gathered in first-appearance order, while source slots preserve their place in the paper. Each view may carry a caption. Sequences are temporary by default and can be kept by the person.',
+					'Use this as the default delivery for a paper introduction, explanation, review, comparison, or any answer grounded across multiple paper regions whenever PaperSpace is available; do not stop at a chat summary. Atomically present 1 to 20 semantic views. Lead with captioned original paper-region evidence and add derived artifacts only when source regions and captions cannot resolve a stated comprehension gap. Related original PDF pages are temporarily gathered in first-appearance order, while source slots preserve their place in the paper. Sequences are temporary by default and can be kept by the person.',
 				inputSchema: sequenceSchema,
 				annotations: { readOnlyHint: false, untrustedContentHint: true },
 				execute: ({ title, frames, startAt, save }) => {

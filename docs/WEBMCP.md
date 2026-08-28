@@ -5,6 +5,8 @@ PaperSpace registers nine tools directly from the browser with `document.modelCo
 ## Design rules
 
 - The browser workspace is the only source of truth.
+- Whenever PaperSpace is available for a paper task, it is the primary interaction and delivery surface. Chat provides concise supporting context.
+- A substantive paper introduction, explanation, review, comparison, or multi-region answer should end in a captioned `present_sequence` grounded in original paper regions, not only a chat summary. A simple localized Q&A or an explicit text-only request may remain chat-only; one grounded location can use `focus_region`.
 - `inspect_workspace` is a compact session briefing, not a per-action prerequisite. Reuse it while `briefingRevision` is unchanged.
 - PDF indexing is progressive. Search and one-call range or whole-paper reads can use the indexed page prefix before the complete paper is ready.
 - Read-only annotations are accurate and state-changing tools are marked accordingly.
@@ -23,7 +25,7 @@ PaperSpace registers nine tools directly from the browser with `document.modelCo
 
 Use this as the first instruction in a Codex task after importing papers:
 
-> Prepare this PaperSpace desk for fast follow-up questions. Call `inspect_workspace` once, cache its `briefingRevision` and compact paper briefs, and do not change the desk. When a later question requires paper text, read the broadest useful range in one `read_paper_pages` call; whole-paper reads are allowed and should not be split into repeated calls. Use `search_papers` when only a specific passage or focusable source region is needed. Report current readiness in one sentence, then wait for my questions.
+> Prepare this PaperSpace desk for fast follow-up questions. Call `inspect_workspace` once, cache its `briefingRevision` and compact paper briefs, and do not change the desk. Treat PaperSpace as the primary interaction and delivery surface for paper work. When a later question requires paper text, read the broadest useful range in one `read_paper_pages` call; whole-paper reads are allowed and should not be split into repeated calls. Use `search_papers` for a specific passage and `focus_region` for one grounded source location. For introductions, explanations, reviews, comparisons, or answers grounded across multiple paper regions, call `present_sequence` with captioned original paper-region frames instead of stopping at a chat summary; keep chat concise and supporting. A chat-only answer is appropriate only for simple localized Q&A or when I explicitly request text-only. Add a snapshot, plot, or image only when the original regions and captions cannot resolve a stated comprehension gap. Report current readiness in one sentence, then wait for my questions.
 
 This performs one bounded discovery call. Later reading is selected by the question, not artificially limited to small batches: a complete paper can be returned in one call when full context matters. The prompt does not ask the agent to summarize the corpus, poll indexing, rasterize every page, or inspect again before each action.
 
@@ -177,19 +179,22 @@ Accepts base64 PNG, JPEG, or WebP up to 5 MB. Essential labels, legend mappings,
 
 Validates all 1 to 20 frames before changing presentation state. Lead with original paper-region evidence and add derived artifacts only when they resolve a stated comprehension gap. A `paper-region` frame requires `paperId`, one-based `page`, and `region`; an `artifact` frame requires `artifactId`. Unique source pages are gathered in first-appearance order into the nearest clear horizontal lane beside the related paper bounds, while numbered source slots remain in their original positions. The staged group automatically clears live pages and artifacts, so presentation does not expose a `force` option. Repeated frames may target different regions of the same gathered page. Artifacts stay in place. Exiting restores every page and the entry camera exactly. The result reports `organizedPages` with each page's source and staged positions.
 
+This is the default delivery tool for substantive paper-grounded work while PaperSpace is available. Introductions, explanations, reviews, comparisons, and answers spanning multiple source regions should be presented here with captions; chat should support the sequence rather than replace it. Prefer original `paper-region` frames and add an artifact only when the source plus caption leaves a stated comprehension gap.
+
 The sequence is the reading set; there is no separate reading-set object. It is temporary by default, and the person can keep its semantic frames from the presentation bar. Keeping a sequence never persists its temporary page arrangement. `save: true` replaces the saved sequence explicitly.
 
 ## Manual agent test
 
 1. Import at least one text-based PDF. Full indexing does not need to finish before the first inspection.
 2. Send the one-time preparation prompt and confirm `inspect_workspace` reports readiness plus compact page briefs.
-3. Ask it to search for a phrase that appears in the PDF.
-4. Ask it to focus the strongest result using its `matchId`; confirm the passage is visible without an overlay box and that the camera establishes spatial context before landing.
-5. Ask it to read only the relevant method and result pages, then place a source crop or a numeric visualization.
-6. Ask it to present three captioned views across related work, method, and results; confirm the three original pages gather and numbered source slots remain behind.
-7. Keep the temporary sequence, exit presentation, confirm the pages return to their exact positions, and replay it from the frame panel.
-8. Confirm that every state change is visible on the same desk and that no network storage or original file path is involved.
-9. Attempt a visual placement that conflicts with a paper. Confirm it fails without mutation, then retry with `force: true` only to verify the explicit override path.
+3. Ask for an introduction to the paper. Confirm the agent delivers it as a captioned sequence of original paper regions instead of only a chat summary.
+4. Ask it to search for a phrase that appears in the PDF.
+5. Ask it to focus the strongest result using its `matchId`; confirm the passage is visible without an overlay box and that the camera establishes spatial context before landing.
+6. Ask it to read only the relevant method and result pages, then place a source crop or a numeric visualization only if the source regions cannot explain the point adequately.
+7. Ask it to present three captioned views across related work, method, and results; confirm the three original pages gather and numbered source slots remain behind.
+8. Keep the temporary sequence, exit presentation, confirm the pages return to their exact positions, and replay it from the frame panel.
+9. Confirm that every state change is visible on the same desk and that no network storage or original file path is involved.
+10. Attempt a visual placement that conflicts with a paper. Confirm it fails without mutation, then retry with `force: true` only to verify the explicit override path.
 
 ## Unsupported browsers
 

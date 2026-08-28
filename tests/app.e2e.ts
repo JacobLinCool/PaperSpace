@@ -362,6 +362,20 @@ test('registers the complete region-aware WebMCP tool surface', async ({ page })
 		includeBlocksDefault: false,
 		maxCharactersMaximum: undefined
 	});
+	const deliveryContract = await page.evaluate(() => {
+		const tools = (
+			window as unknown as {
+				__paperspaceTools: Array<{ name: string; description: string }>;
+			}
+		).__paperspaceTools;
+		return {
+			inspect: tools.find((tool) => tool.name === 'inspect_workspace')?.description,
+			present: tools.find((tool) => tool.name === 'present_sequence')?.description
+		};
+	});
+	expect(deliveryContract.inspect).toContain('PaperSpace the primary surface');
+	expect(deliveryContract.present).toContain('default delivery for a paper introduction');
+	expect(deliveryContract.present).toContain('do not stop at a chat summary');
 
 	const inspected = await page.evaluate(async () => {
 		const [tool] = (
@@ -376,7 +390,11 @@ test('registers the complete region-aware WebMCP tool surface', async ({ page })
 			briefingRevision: expect.any(String),
 			readiness: { status: 'empty', questionReady: false },
 			agentProtocol: expect.arrayContaining([
-				expect.stringContaining('Whole-paper reads are allowed')
+				expect.stringContaining('Whole-paper reads are allowed'),
+				expect.stringContaining('primary interaction and delivery surface'),
+				expect.stringContaining('do not stop at a chat summary'),
+				expect.stringContaining('simple localized Q&A'),
+				expect.stringContaining('Prefer original paper-region frames')
 			]),
 			storage: 'Authorized browser-local copies only; original paths are unavailable',
 			coordinateSystem: 'PDF regions use top-left normalized x, y, width, and height',

@@ -33,6 +33,8 @@ PaperSpace uses the current imperative API at `document.modelContext.registerToo
 | `place_image`           | Validates and safely places a self-contained PNG, JPEG, or WebP image.              |
 | `present_sequence`      | Gathers related original pages and presents captioned views; temporary by default.  |
 
+When PaperSpace is available, substantive paper-grounded introductions, explanations, reviews, comparisons, and multi-region answers should be delivered through `present_sequence` with captioned original paper regions. Chat remains concise supporting context. Simple localized Q&A and explicit text-only requests are the exceptions.
+
 Read tools return structured content as well as a text representation. PDF text becomes searchable page by page during indexing. Visible spatial mutations run an app-side preflight and fail without changing state when they would crowd or cover existing content; `force: true` is an explicit visual-only override.
 
 See [docs/WEBMCP.md](docs/WEBMCP.md) for the tool contract and testing notes.
