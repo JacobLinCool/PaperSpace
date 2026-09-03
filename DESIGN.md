@@ -320,7 +320,7 @@ Every icon-only control has an accessible name and a visible tooltip. Tooltips a
 - **Don't** wrap the desk in a card, add a permanent inspector, or fill the viewport with dashboard chrome.
 - **Don't** introduce whiteboard, diagram, connector, drawing, Mermaid, sticky-note, or generic canvas-object patterns.
 - **Don't** turn live PDFs into thumbnails, screenshots, or decorative document cards.
-- **Don't** collapse a paper into one page-swapping item or draw a focus rectangle over guided source content.
+- **Do** keep papers spatially unfolded and make the guided source region itself the visual center of attention.
 - **Don't** store frame views as camera captures or accept arbitrary HTML, SVG, or executable artifact payloads.
 - **Don't** introduce backend behavior, server routes, Workers, databases, object storage, accounts, or collaboration into this visual system.
 - **Don't** use Aurora colors as decoration, invent extra elevation levels, or add gratuitous motion.

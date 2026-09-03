@@ -31,7 +31,7 @@ PaperSpace is neither a conventional tabbed PDF reader nor a general whiteboard.
 - Desktop-first personal research sessions using a mouse or trackpad.
 - Academic PDFs with multi-column text, figures, tables, appendices, and long page ranges.
 - A WebMCP-aware browser agent may inspect and operate the open workspace with user-mediated permission.
-- The application is opened from a static Cloudflare Pages URL and requires no account or backend.
+- The application opens from a static Cloudflare Pages URL and keeps its complete runtime state in the browser.
 
 ## Capabilities and Constraints
 

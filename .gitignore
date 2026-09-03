@@ -142,3 +142,11 @@ playwright-report/
 
 # Durable agent-only production guidance
 *.shadow.md
+
+# macOS metadata
+.DS_Store
+
+# Demo-video production intermediates
+tmp/
+output/video/*
+!output/video/paperspace-webmcp-demo.mp4

@@ -81,7 +81,7 @@ Or target an explicit source rectangle:
 }
 ```
 
-Exactly one targeting mode should be used. `padding` accepts `0` through `0.35`. The camera pulls back to establish the route, travels through the desk, and lands with the padded region inside the viewport. The source stays unobstructed: no focus rectangle is drawn.
+Exactly one targeting mode should be used. `padding` accepts `0` through `0.35`. The camera pulls back to establish the route, travels through the desk, and lands with the padded source region as the visual center of the viewport.
 
 ### `arrange_papers`
 
